@@ -1,4 +1,5 @@
 # ROS Wrapper for Intel&reg; RealSense&trade; Devices
+## It is a revised version, to publish the original depth map even some depth map filters (offered by Realsense SDK) are used, to launch FLVIS at depth mode.
 These are packages for using Intel RealSense cameras (D400 series SR300 camera and T265 Tracking Module) with ROS.
 
 This version supports Kinetic, Melodic and Noetic distributions.
