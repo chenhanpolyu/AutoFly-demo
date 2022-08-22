@@ -1,4 +1,6 @@
 #  FLVIS
+## It is a REVISED version to adapt to IR projector of D435i. The camera can turn on the IR projector to improve the depth map quality, and turn off it in the next frame for VIO feature point extraction. When you set the camera IR iamge frequency to 30 Hz, this modified FLVIS only 15 frames per second that WITHOUT IR pattern. 
+
 The implementation of Feedforward-feedback Loop-based Visual Inertial System. If you want to use FLVIS with GPU acceleration, try this [repo](https://github.com/JazzyFeng/FLVIS-gpu).
 
 ### 1-Video
