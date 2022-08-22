@@ -16,6 +16,6 @@ Set `ReturnHome` to a number greater than 2 to activate the repeating mode. The 
 
 Set if_RandomGoal to true to activate the randomly fly mode. The drone will choose the next goal randomly inside the global bounding box (see parameter `GlobalBox_min`, `GlobalBox_size`). It is usaully used in simulation. Please set it to false if you want to use other modes.
 
-You can set "ifMove" to false to check the planned trajectory without the drone move its position, the drone will hover at its original position.
+You can set `ifMove` to false to check the planned trajectory without the drone move its position, the drone will hover at its original position.
 
-"VelMax" is the upper speed limitation of the planned trajectory. "ThrustAccMax" is for the acceleration, and please set it according to your actual dynamic limit (usually not greater than 20).
+`VelMax` is the upper speed limitation of the planned trajectory. `ThrustAccMax` is for the thrust acceleration (total thrust force/total vehicle mass), and please set it according to your actual dynamic limit (usually not greater than 20). It must be greater than 10 (G).
