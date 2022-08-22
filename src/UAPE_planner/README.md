@@ -12,7 +12,7 @@ To begin the navigation,run:
 
 The goal is set in `planning_params.yaml`, after the drone reached the goal, you can manually terminate the program and set another goal, save the yaml file, restart the navigation.
 
-Set ReturnHome to a number greater than 2 to activate the repeating mode. The number indicates the number of navigations. For example, "4" means fly to goal (1 navigation), return home (2 navigation), fly to goal again (3 navigation), return home again (4 navigation).
+Set `ReturnHome` to a number greater than 2 to activate the repeating mode. The number indicates the number of navigations. For example, "4" means fly to goal (1 navigation), return home (2 navigation), fly to goal again (3 navigation), return home again (4 navigation).
 
 Set if_RandomGoal to true to activate the randomly fly mode. The drone will choose the next goal randomly inside the global bounding box (see parameter `GlobalBox_min`, `GlobalBox_size`). It is usaully used in simulation. Please set it to false if you want to use other modes.
 
