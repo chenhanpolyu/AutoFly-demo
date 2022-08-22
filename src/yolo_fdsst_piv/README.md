@@ -1,5 +1,7 @@
 # yolo_fdsst_piv
 A universal object detecting, tracking, and motion estimating framework
+## Install dependencies
+`source install_deps.sh`
 
 Demo:
 
