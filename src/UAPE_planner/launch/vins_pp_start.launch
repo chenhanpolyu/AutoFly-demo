@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find flvis)/launch/d435i/camera_params_start.launch">
+        </include>
+    <node pkg="ahpf_planner" type="imu_boost.sh" 
+    name="imu_boost" output="screen">
+    </node>
+	<include file="$(find mavros)/launch/FJ005.launch"/>
+        <!--include file="$(find ekf)/launch/PX4_vicon.launch"/-->
+
+	<!--include file="$(find fuxi-planner)/launch/plc_filter_rgb.launch">
+	</include-->
+    <!--node pkg="ahpf_planner" type="record_ball.sh" 
+    name="rec" output="screen"/-->
+	<include file="$(find vins)/launch/fast_drone_250.launch">
+        </include>
+</launch>

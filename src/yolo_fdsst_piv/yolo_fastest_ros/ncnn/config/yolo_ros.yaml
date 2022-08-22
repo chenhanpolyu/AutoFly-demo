@@ -1,0 +1,30 @@
+subscribers:
+  camera_reading:
+    img_topic: /camera/color/image_raw
+    depth_topic: /camera/depth/image_rect_raw111   #will not publish object depth if this topic does not exist
+    #/camera/aligned_depth_to_color/image_raw
+    
+yolo:
+  model_reading:
+    model_path: /home/fj005-2/demo_ws/src/yolo_fdsst_piv/yolo_fastest_ros/ncnn/yolo-fastestv2-opt.bin
+    para_path: /home/fj005-2/demo_ws/src/yolo_fdsst_piv/yolo_fastest_ros/ncnn/yolo-fastestv2-opt.param
+  interested_objects_id: [0, 1, 2, 3, 5, 7]
+  detection_parameters:
+    use_gpu: false
+    input_size: 480
+    #480
+    #416
+    # 672  for 848*480
+    #832
+    nmsThresh: 0.25
+    confThresh: 0.65 # small for simulation:0.4, for hardware 0.65
+    relaxTime: 0.2    #minimal time interval to detect objects
+    recoverTime: 0.6    #maxtime interval to track objects
+    h2wRatio: 0.566  #height/width of the input image. If the training data only use images with height = width,
+                                      # but the actual input image is not  height = width, set the ratio to get better performance.
+    if_debug: false
+track:
+  track_confidence: 0.36  #0.30 
+  init_box_scale: 0.75   # smaller than 1:  0.7
+  if_multi_scale: true
+  iou_threshold: 0.7   #0.45

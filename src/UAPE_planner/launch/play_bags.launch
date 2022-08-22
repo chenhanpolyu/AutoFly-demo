@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>    
+
+<node pkg="rosbag" type="play" name="bag1" output="screen" args="$(find ahpf_planner)/bags/noAcc_1dyn_traj.bag /detailed_optimal_trajectory:=/detailed1 /optimal_trajectory:=/optimal_trajectory1">
+</node>
+
+<node pkg="rosbag" type="play" name="bag2" output="screen" args="$(find ahpf_planner)/bags/Acc_1dyn_traj.bag">
+</node>
+
+<node pkg="rosbag" type="play" name="bag3" output="screen" args="$(find ahpf_planner)/bags/single_dyn.bag">
+</node>
+
+<!-- <node pkg="rosbag" type="play" name="bag1" output="screen" args="$(find ahpf_planner)/bags/noAcc_2dyn_traj.bag /detailed_optimal_trajectory:=/detailed1 /optimal_trajectory:=/optimal_trajectory1">
+</node>
+
+<node pkg="rosbag" type="play" name="bag2" output="screen" args="$(find ahpf_planner)/bags/Acc_2dyn_traj.bag">
+</node>
+
+<node pkg="rosbag" type="play" name="bag3" output="screen" args="$(find ahpf_planner)/bags/double_dyn.bag">
+</node> -->
+
+</launch>

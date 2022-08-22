@@ -1,0 +1,10 @@
+debug: false
+CameraMount: [0.12,0,0]
+Camera2RgbExtincs: [0.015,0,0]
+InflateSize: 0.5
+MinDt: 0.25
+StaticPclLength: 2000
+KFLifeTime: 0.8
+MaxVel: 3
+MapResolution: 0.2
+#CameraIntrinsics: [343.4963684082031, 343.4963684082031,320.0,180.0]

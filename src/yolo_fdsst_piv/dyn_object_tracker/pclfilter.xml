@@ -1,0 +1,15 @@
+<library path="lib/libdyn_object_tracker">
+        <class name="dyn_object_tracker/PclFilter" type="pcl_filter_ns::PclFilter"
+		base_class_type="nodelet::Nodelet">
+		<description>
+                        Point cloud filters
+		</description>
+	</class>
+
+        <class name="dyn_object_tracker/PIV" type="pcl_filter_ns::PIV"
+		base_class_type="nodelet::Nodelet">
+		<description>
+                        PIV
+		</description>
+	</class>
+</library>

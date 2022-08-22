@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>    
+
+ <node pkg="ahpf_planner" type="traj_node" name="traj_node" output="screen">
+   
+      <rosparam file="$(find ahpf_planner)/launch/planning_params_sim.yaml" command="load" />
+      <!--remap from="/points_global_all" to="/camera/depth/color/points"/-->
+<!--remap from="/vicon_imu_ekf_odom"  to="/imu_odom"/-->
+  </node>
+    <!--node pkg="ahpf_planner" type="record_ball.sh" 
+    name="rec" output="screen"/-->
+</launch>

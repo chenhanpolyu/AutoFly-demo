@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+        <rosparam>
+           /camera/stereo_module/emitter_enabled: 1
+           /camera/stereo_module/emitter_on_off: true
+           /camera/decimation/filter_magnitude: 4
+           /camera/spatial/filter_smooth_delta: 8
+           /camera/spatial/filter_smooth_alpha: 0.65
+           /camera/realsense2_camera/initial_reset: true
+        </rosparam>
+        <include file="$(find flvis)/launch/d435i/rs_rgbd_848_30.launch">
+      <arg name="external_manager"         value="true"/>
+      <arg name="manager"                  value="/flvis_nodelet_manager"/>
+      </include>
+        <!--include file="$(find dyn_object_tracker)/launch/pcl_filter_rgb.launch"/-->
+</launch>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- include file="$(find flvis)/launch/flvis_d435i_depth.launch">
+        </include-->
+	<!-- include file="$(find flvis)/launch/flvis_d435_pixhawk_depth.launch">
+        </include -->
+<!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find dyn_object_tracker)/launch/planning_demo.rviz" required="true" /> -->
+	<!-- <include file="$(find dyn_object_tracker)/launch/pcl_filter_hw.launch"> </include> -->
+        
+        <!--include file="$(find dyn_object_tracker)/launch/pcl_filter_hw.launch"> </include-->
+         <!-- <param name="if_silent" value="1" />
+         <param name="if_lite" value="True" />
+         < if output the debug message>
+        <node name="piv" pkg="dyn_object_tracker" type="dynobs_tracker_yolodet_hw1.py"  output="screen"/>yolo_nodelet_manager flvis_nodelet_manager-->
+  <arg name="manager_name"  default="flvis_nodelet_manager" />
+  <arg name="PIV_param_file" default="$(find dyn_object_tracker)/config/PIV_sim.yaml"/>
+  <rosparam command="load" file="$(arg PIV_param_file)"/>
+     <node pkg="nodelet" type="nodelet" args="load dyn_object_tracker/PIV $(arg manager_name)"
+        name="PIV" output="screen"
+        launch-prefix="bash -c 'sleep 1; $0 $@' ">
+    </node>
+<!--remap from="/vicon_imu_ekf_odom"  to="/imu_odom"/-->
+
+
+<node pkg="nodelet" type="nodelet" args="load dyn_object_tracker/PclFilter $(arg manager_name)"
+        name="pclfilter" output="screen">
+<!-- <node pkg="dyn_object_tracker" type ="chen_filter_rgb" name="chen_filter_rgb" output="screen"> -->
+        
+<param name="input"       type="string" value="/camera/depth/color/points"/>
+<!-- <param name="input"       type="string" value="/camera/depth/points"/>  -->
+<param name="cut_dis"       type="double" value="-8.5"/> 
+<param name="voxel_size"       type="double" value="0.12"/> 
+
+<param name="n_r"       type="double" value="-0.24"/> 
+<param name="n_n"       type="int" value="10"/> 
+<param name="radius_cluster"       type="double" value="0.3"/> 
+<!--param name="min_number_cluster"       type="int" value="17"/--> 
+<param name="min_number_cluster"       type="int" value="17"/> 
+<param name="std"       type="double" value="-1.2"/> 
+<param name="MK"        type="int" value="30"/> 
+<param name="use_current_time"  type="bool" value="false"/>
+<param name="if_rgb_pcl"  type="bool" value="true"/>
+<param name="img_delay"   type="double" value="0.005"/> 
+</node>
+
+</launch>

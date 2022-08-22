@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!--include file="$(find ekf)/launch/PX4_vicon.launch"/-->
+	<node pkg="px4ctrl" type="px4ctrl_node" name="px4ctrl" output="screen">
+        	<remap from="~odom" to="/vicon_imu_ekf_odom" />
+		<remap from="~cmd" to="/position_cmd" />
+
+        <rosparam command="load" file="$(find px4ctrl)/config/ctrl_param_fpv.yaml" />
+	</node>
+<!--include file="$(find waypoint_trajectory_generator)/launch/traj_gen.launch"/>
+<include file="$(find traj_server)/launch/traj_server.launch"/-->
+<node pkg="px4ctrl" type="takeoff.sh" 
+    name="takeoff" output="screen">
+</node>
+</launch>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+	<!--include file="$(find flvis)/launch/flvis_d435i_depth.launch">
+        </include-->
+	<include file="$(find flvis)/launch/flvis_d435_pixhawk_depth.launch">
+        </include>
+    <node pkg="ahpf_planner" type="imu_boost.sh" 
+    name="imu_boost" output="screen">
+    </node>
+	<include file="$(find ahpf_planner)/launch/px4.launch"/>
+        <include file="$(find ekf)/launch/PX4_vicon.launch"/>
+<include file="$(find odom_visualization)/launch/odom_visualization.launch"/>
+	<!--include file="$(find fuxi-planner)/launch/plc_filter_rgb.launch">
+	</include-->
+    <!--node pkg="ahpf_planner" type="record_ball.sh" 
+    name="rec" output="screen"/-->
+</launch>

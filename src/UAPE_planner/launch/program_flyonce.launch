@@ -1,0 +1,5 @@
+<launch>
+	<node pkg="AHPF_planner" type ="program_flyonce.py" name="program_flyonce" output="screen"/>
+	<node pkg="AHPF_planner" type ="arm_offboard.py" name="arm_offboard" output="screen"/>
+
+</launch>

@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/zuzu/dyn_ws/devel/include/**",
+        "/home/zuzu/Workspace/Robotics/image_pipeline/devel/include/**",
+        "/opt/ros/melodic/include/**",
+        "/home/zuzu/Workspace/Robotics/image_pipeline/src/image_pipeline/depth_image_proc/include/**",
+        "/home/zuzu/dyn_ws/src/dyn_object_tracker/include/**",
+        "/home/zuzu/dyn_ws/src/PX4-controller/src/control_test/ekf_pose/include/**",
+        "/home/zuzu/Workspace/Robotics/image_pipeline/src/image_pipeline/image_proc/include/**",
+        "/home/zuzu/dyn_ws/src/PX4-controller/src/utils/pose_utils/include/**",
+        "/home/zuzu/dyn_ws/src/PX4-controller/src/utils/quadrotor_msgs/include/**",
+        "/home/zuzu/Workspace/Robotics/image_pipeline/src/image_pipeline/stereo_image_proc/include/**",
+        "/home/zuzu/Workspace/Robotics/image_pipeline/src/test/include/**",
+        "/home/zuzu/dyn_ws/src/PX4-controller/src/utils/uav_utils/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

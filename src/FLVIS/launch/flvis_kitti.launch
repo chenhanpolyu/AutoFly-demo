@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<launch>
+
+<!--Input######################################################################################################-->
+    <param name="/dataset_pub_delay"      type="double"  value="5.0" />
+    <param name="/dataset_pub_rate"       type="int"     value="30" />
+
+    <param name="/publish_gt"             type="bool"    value="true" />
+    <param name="/dataset_folder_path"    type="string"  value="$(find flvis)/bag/KITTI/dataset/sequences/00/" />
+    <param name="/dataset_gt_file"        type="string"  value="$(find flvis)/bag/KITTI/dataset/poses/00.txt" />
+    <node pkg="flvis" type="kitti_publisher" name="kitti_publisher" output="screen"/>
+
+<!--FLVIS######################################################################################################-->
+    <arg name="node_start_delay"  default="1.0" />
+    <param name="/yamlconfigfile" type="string" value="$(find flvis)/launch/KITTI/KITTI.yaml"/>
+    <param name="/voc"            type="string" value="$(find flvis)/voc/voc_orb.dbow3"/>
+
+    <!-- Manager -->
+    <node pkg="nodelet" type="nodelet"
+          name="flvis_nodelet_manager" args="manager" output="screen"
+          launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+          <param name="num_worker_threads" value="2" />
+    </node>
+
+    <!-- TrackingNode -->
+    <!-- D435i -->
+    <node pkg="nodelet" type="nodelet" args="load flvis/TrackingNodeletClass flvis_nodelet_manager"
+        name="TrackingNodeletClass_loader" output="screen"
+        launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+        <remap from="/imu"               to="/camera/imu"/>
+    </node>
+
+    <!-- LocalMapNode -->
+    <!--window_size: Num of keyframes in sliding window optimizer-->
+<!--    <node pkg="nodelet" type="nodelet" args="load flvis/LocalMapNodeletClass flvis_nodelet_manager"
+          name="LocalMapNodeletClass_loader" output="screen"
+          launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+        <param name="/window_size" type="int" value="8" />
+    </node>-->
+
+    <!-- LoopClosingNode -->
+    <node pkg="nodelet" type="nodelet" args="load flvis/LoopClosingNodeletClass flvis_nodelet_manager"
+        name="LoopClosingNodeletClass_loader" output="screen"
+        launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+    </node> -->
+
+<node pkg="flvis" type="vo_repub_rec" name="lc2file" output="screen">
+    <!--Sub Support Type:-->
+    <param name="sub_type" type="string" value="NavPath" />
+    <param name="sub_topic" type="string" value="/vision_path_lc_all" />
+
+    <!--Support Type:-->
+    <!--"0" disable the republish function -->
+    <!--"Path"-->
+    <!--"PoseStamped"-->
+    <param name="repub_type" type="string" value="0" />
+    <param name="repub_topic" type="string" value="/republish_path" />
+    <!--output_file_path = "0" disable the file output function-->
+    <param name="output_file_path" type="string" value="$(find flvis)/results/kitti_lc.txt" />
+</node>
+
+
+</launch>

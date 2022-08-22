@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+<!--Input######################################################################################################-->
+
+    <!--include file="$(find flvis)/launch/d435_pixhawk/px4.launch"/-->
+
+<!--FLVIS######################################################################################################-->
+    <arg name="node_start_delay"  default="8.0" />
+    <param name="/yamlconfigfile" type="string" value="$(find flvis)/launch/d435_pixhawk/depth_px4.yaml"/>
+    <param name="/voc"            type="string" value="$(find flvis)/voc/voc_orb.dbow3"/>
+    <!--In lite version, the visualization will be simplified -->
+
+    <!-- Manager -->
+    <node pkg="nodelet" type="nodelet"
+          name="flvis_nodelet_manager" args="manager" output="screen"
+          launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+          <param name="num_worker_threads" value="1" />
+    </node>
+    <include file="$(find flvis)/launch/d435i/camera_params_start.launch"/>
+    <!-- TrackingNode -->
+    <node pkg="nodelet" type="nodelet" args="load flvis/TrackingNodeletClass flvis_nodelet_manager"
+          name="TrackingNodeletClass_loader" output="screen"
+          launch-prefix="bash -c 'sleep $(arg node_start_delay); $0 $@' ">
+        <!-- remap D435 input -->
+        <remap from="/vo/input_image_0"  to="/camera/infra1/image_rect_raw"/>
+        <remap from="/vo/input_image_1"  to="/camera/depth/image_rect_raw"/>
+        <!-- remap PIXHAWK input -->
+        <remap from="/imu"             to="/mavros/imu/data"/>
+        <!-- remap output -->
+        <!--remap from="imu_pose" to="/mavros/vision_pose/pose"/-->
+        <!-- <remap from="imu_pose" to="/vicon/chenhan1/chenhan1"/> -->
+        <!--<remap from="imu_odom" to="/flvis/imu_odom"/>-->
+        <!--<remap from="imu_path" to="/flvis/imu_path"/>-->
+    </node>
+
+
+
+
+</launch>

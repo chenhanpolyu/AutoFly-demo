@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+ 
+  <!-- ROS and network parameter files -->
+  <arg name="ros_param_file" default="$(find yolodetector)/config/yolo_ros_sim.yaml"/>
+  <arg name="manager_name"  default="yolo_nodelet_manager" />
+  <rosparam command="load" file="$(arg ros_param_file)"/>
+  <!-- Start darknet and ros wrapper -->
+  <!-- <node pkg="yolodetector" type="rosnode_yolo" name="rosnode_yolo" output="screen" >
+  </node> -->
+      <node pkg="nodelet" type="nodelet"
+          name="$(arg manager_name)" args="manager" output="screen">
+          <param name="num_worker_threads" value="1" />
+    </node>
+     <node pkg="nodelet" type="nodelet" args="load yolodetector/YoloDetector $(arg manager_name)"
+        name="YoloDetector" output="screen">
+    </node>
+
+    <node pkg="yolodetector" type="cpu_performance.sh" 
+    name="cpu_boost" output="screen">
+    </node>
+  <include file="$(find dyn_object_tracker)/launch/piv_filter_start_sim.launch">
+<arg name="manager_name"  value="$(arg manager_name)" />
+</include>
+</launch>

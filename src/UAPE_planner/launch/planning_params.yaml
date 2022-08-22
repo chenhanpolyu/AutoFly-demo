@@ -1,0 +1,77 @@
+#MapTopic:                   '/random_complex/global_map'
+#TargetTopic:                '/move_base_simple/goal'
+#OdomFrame:                  '/world_enu'
+# 14 12
+#18 16
+# 21 18
+#goal: [-14.0,14.0,1.3]
+goal: [6.8,0.0,1.2]
+UseRcGuide: false
+ReturnHome: 4     #the one-way trip number. should >= 2 to active retrun home mode. If = 2, drone fly to the goal and return home.
+if_RandomGoal: false
+if_debug: false
+UseRawPcl: false   # if use the camera raw pcl for obstacle avoidance, only for static environment
+UseRawDepth: false
+CtrlFreq: 150
+ScaleSI:                    1.0
+MapHeight:                  3.0
+PolyhedronBox:              [6.0, 6.0, 3.2]  # the size constriants for a single polyhedron generated from one path segment. number1: 
+                                             #offset along the path, number2: offset perdenticular to path, in the floor plane. 
+                                             #number 3: offset perdenticular to path, in the verticle plane.
+GlobalBox_min:              [-15.0, -3.5, 0.2]  #global box constraint. The lower bound for all polyhedrons.
+GlobalBox_size:             [30.0, 7.0, 2.0]    #global box size, the allowed vehicle moving range is : GlobalBox_min->GlobalBox_min+GlobalBox_size
+TotalT:                     0.0
+QdIntervals:                15   #sample number for each segment of the polynomial
+HorizHalfLen:               0.0
+VertHalfLen:                0.0
+SafeMargin:                 0.3  #0.3 for static hardware test
+VelMax:                     1.2  # maximal speed for kino-path searching and trajectory optimization. The code will double this max speed 
+                                 #constrain (at least to 4 m/s) for trajectory when a ball is detected
+
+PathAccMax:                 6.0  #the max acc used for kino-a-star path search. It should be smaller when VelMax is smaller,
+                                 # or the kino-path-searching may often fail because of the small speed constrain VS big acc sampling gap. It is a trade off between the computing burden and the searching accuracy. 
+                                 #Some recommended values: VelMax = 0.5//PathAccMax=1.0 ; VelMax = 2.0//PathAccMax=5.0
+ThrustAccMax:               15.0
+BodyRateMax:                1.0
+GravAcc:                    9.81
+PenaltyPVTB:                [40000.0, 50000.0, 10000.0, 10000.0]   #P: convex hull  V: velocity T: thrust  B:body rate
+Rho:                        50.0
+UseC2Diffeo:                true
+OptRelTol:                  1.0e-4
+TrajVizWidth:               1.0
+TrajVizRGB:                 [0.8, 0.0, 0.0]
+ifMove:                     true #false #
+cam_depth:                  8.5   # the camera fov: depth, horizontal view angle, vertical angle. depth > search/horizon
+h_fov:                      87.0
+v_fov:                      58.0
+
+#Yaw planning
+Yawplan:        true
+MaxYawRange:    1.57 #3.14 #1.57
+YawGapWeight:  1.2
+YawGapMax:        0.35 #0.7
+#RouteStoragePath:           './data/office_easy_1.txt'
+EllipsoidVizRGBA:           [1.0, 0.0, 1.0, 1.0]
+#QuadrotorPath:              '/misc/data/quadcopter.dae'
+sfck_t: 0.3  #minimum distance or time gap to re-build the SFC, set a reasonable value to prevent computing overload. Smaller value for more dense env.
+#kinodynamic path searching
+search/max_tau: 0.5   # time duration for state transition between nodes
+search/init_max_tau: 0.8
+search/acc_sample_num_: 2.0 #the acceleration sampling resolution will be 1/acc_sample_num_ when sampling in the control (acc) space. 
+                            #From -max_acc to max_acc, when acc_sample_num_ = 2.0, there are 2*acc_sample_num_+1=5 samples for one axis, and 5*5*5=125
+                            #samples in total. Thus, the computing burden will increase dramatically when increasing the sampling number. You can increase this 
+                            #when the path searching often fails, depending on the computing resource of your hardware.
+search/w_time: 10.0
+search/horizon: 8.0
+search/lambda_heu: 5.0
+search/resolution_astar: 0.2  #used to get descritized spatial ID, to check if two nodes are identical when expanding
+search/time_resolution: 0.5   #used to get descritized time  ID, to check if two nodes are identical when expanding
+#search/margin: 0.2
+search/allocate_num: 100000
+search/check_num: 5  #
+search/optimistic: true
+search/vel_margin: 1.0   # The final maximal speed constrain will be VelMax+vel_margin. You can give a positive number to relax the velocity 
+                         #  constrain when the path planning often fails
+search/safety_radius: 0.3
+
+# You can see that the acceleration constrain for path planning and the trajectory optimization is not the same. ThrustAccMax is the thrust acceleration, obtained from MaxThrustForce/vehicleMass. PathAccMax is the accleration limit of the kinopath for each x-y-z axis.

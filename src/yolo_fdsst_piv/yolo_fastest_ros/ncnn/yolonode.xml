@@ -1,0 +1,8 @@
+<library path="lib/libyolodetector">
+        <class name="yolodetector/YoloDetector" type="yolo_ns::YoloDetector"
+		base_class_type="nodelet::Nodelet">
+		<description>
+                        Yolo and fdsst object detecor and tracker .
+		</description>
+	</class>
+</library>
