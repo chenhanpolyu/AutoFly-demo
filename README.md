@@ -6,7 +6,7 @@ Just clone this repo at your root path, treat this folder as a workspace folder.
 Please enter each folder inside /src and install the packages's dependencies as introduced in the README file.
 
 
-The **original controller package in this project cannot be open-sourced now**, you can use this [package](https://github.com/ZJU-FAST-Lab/Fast-Drone-250/tree/master/src/realflight_modules/px4ctrl) and they have the same function for our demo. Just put this controller package inside our /src folder.
+The **original controller package in this project cannot be open-sourced now**, you can use this [package](https://github.com/chenhanpolyu/px4Controller-linear) and they have the same function for our demo. Just put this controller package inside our /src folder.
 
 Then, run `catkin_make` to build the entire workspace.
 
