@@ -29,7 +29,7 @@ make px4_sitl_default gazebo
 
 ## 外环控制器
 
-将[外环控制器]也放入工作空间内(https://github.com/chenhanpolyu/px4Controller-linear)。
+将[外环控制器](https://github.com/chenhanpolyu/px4Controller-linear)也放入工作空间内。
 
 ## 自主飞行Demo启动方式
 确保工作空间内所有包都编译通过，并已经source devel/setup.bash。
