@@ -5,8 +5,7 @@
 
 3.source devel/setup.bash。然后在/home/USER_NAME目录下放置PX4-Autopilot（即px4固件源码）并在PX4-Autopilot目录下运行“make px4_sitl_default gazebo”。
 具体操作：
-
-''''
+````
 git clone https://github.com/PX4/PX4-Autopilot.git
 cd PX4-Autopilot/
 git checkout 71db090
@@ -15,7 +14,7 @@ git submodule update --init --recursive
 bash ./Tools/setup/ubuntu.sh
 sudo apt upgrade libignition-math2 #(libignition-math4 for noetic)
 make px4_sitl_default gazebo
-''''
+````
 
 4.编译成功后，启动仿真环境：“roslaunch gazebo_sim gt_sim_indoor.launch”。里面包含了静态障碍物以及动态行人，以及一架带有深度相机的无人机。
 
