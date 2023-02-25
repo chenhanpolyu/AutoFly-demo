@@ -1,9 +1,11 @@
+##配置仿真环境
+
 1.在工作空间内放置Gazebo仿真环境的ROS包。开发时测试所使用的是IRIS飞机模型，px4飞控，以及D435相机，对应的仿真包已经[开源](https://github.com/arclab-hku/gazebo_playground)。
 这个包里有修改后的Realsense-Gazebo插件，减轻了对机器的计算资源消耗，轻型笔记本电脑也可以流畅运行。
 
 2.在工作空间的根目录下 catkin_make 编译。
 
-3.source devel/setup.bash。然后在/home/USER_NAME目录下放置PX4-Autopilot（即px4固件源码）并在PX4-Autopilot目录下运行“make px4_sitl_default gazebo”。
+3.然后在/home/USER_NAME目录下放置PX4-Autopilot（即px4固件源码）并在PX4-Autopilot目录下运行“make px4_sitl_default gazebo”。
 具体操作：
 ````
 git clone https://github.com/PX4/PX4-Autopilot.git
@@ -20,3 +22,27 @@ make px4_sitl_default gazebo
 
 
 如果配置Gazebo环境中出现问题，请参考[E2ES项目](https://github.com/HKPolyU-UAV/E2ES)的文档，里面对需要安装的依赖有详细的说明。
+
+
+##删除无用的包
+仿真环境里不需要FLVIS以及realsense-ros这两个包，要先删除。
+
+##外环控制器
+
+将[外环控制器]也放入工作空间内(https://github.com/chenhanpolyu/px4Controller-linear)。
+
+##自主飞行Demo启动方式
+确保工作空间内所有包都编译通过，并已经source devel/setup.bash。
+启动四个终端窗口，分别运行：
+
+````
+roslaunch gazebo_sim gt_sim_indoor.launch
+
+roslaunch px4ctrl run_ctrl.launch
+
+roslaunch yolodetector sim_yolo_ros.launch 
+
+roslaunch ahpf_planner sim_traj_node.launch
+````
+
+
