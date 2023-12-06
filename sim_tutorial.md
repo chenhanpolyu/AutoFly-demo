@@ -18,7 +18,7 @@ sudo apt upgrade libignition-math2 #(libignition-math4 for noetic)
 make px4_sitl_default gazebo
 ````
 
-4.编译成功后，启动仿真环境：“roslaunch gazebo_sim gt_sim_indoor.launch”。里面包含了静态障碍物以及动态行人，以及一架带有深度相机的无人机。
+4.编译成功后，启动仿真环境：“roslaunch gazebo_sim gazebo_sim_dyn.launch”。里面包含了静态障碍物以及动态行人，以及一架带有深度相机的无人机。
 
 
 如果配置Gazebo环境中出现问题，请参考[E2ES项目](https://github.com/HKPolyU-UAV/E2ES)的文档，里面对需要安装的依赖有详细的说明。
@@ -36,7 +36,7 @@ make px4_sitl_default gazebo
 启动四个终端窗口，分别运行：
 
 ````
-roslaunch gazebo_sim gt_sim_indoor.launch
+roslaunch gazebo_sim gazebo_sim_dyn.launch
 
 roslaunch px4ctrl run_ctrl.launch
 
