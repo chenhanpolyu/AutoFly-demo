@@ -5,22 +5,26 @@
   <!-- ROS and network parameter files -->
   <arg name="ros_param_file" default="$(find yolodetector)/config/yolo_ros_sim.yaml"/>
   <arg name="manager_name"  default="yolo_nodelet_manager" />
+  <arg name="use_dynamic_obstacles" default="false" />
   <rosparam command="load" file="$(arg ros_param_file)"/>
-  <!-- Start darknet and ros wrapper -->
-  <!-- <node pkg="yolodetector" type="rosnode_yolo" name="rosnode_yolo" output="screen" >
-  </node> -->
-      <node pkg="nodelet" type="nodelet"
-          name="$(arg manager_name)" args="manager" output="screen">
-          <param name="num_worker_threads" value="1" />
-    </node>
-     <node pkg="nodelet" type="nodelet" args="load yolodetector/YoloDetector $(arg manager_name)"
+  <param name="/yolo/model_reading/model_path" value="$(find yolodetector)/yolo-fastestv2-opt.bin"/>
+  <param name="/yolo/model_reading/para_path" value="$(find yolodetector)/yolo-fastestv2-opt.param"/>
+  <node pkg="nodelet" type="nodelet"
+      name="$(arg manager_name)" args="manager" output="screen">
+      <param name="num_worker_threads" value="1" />
+      <!-- Apply remap at manager level so loaded nodelets inherit it -->
+      <remap from="/vicon_imu_ekf_odom" to="/gt_iris_base_link_imu"/>
+  </node>
+
+  <include file="$(find dyn_object_tracker)/launch/piv_filter_start_sim.launch">
+    <arg name="manager_name" value="$(arg manager_name)" />
+  </include>
+  <group if="$(arg use_dynamic_obstacles)">
+    <node pkg="nodelet" type="nodelet" args="load yolodetector/YoloDetector $(arg manager_name)"
         name="YoloDetector" output="screen">
     </node>
-
-    <node pkg="yolodetector" type="cpu_performance.sh" 
-    name="cpu_boost" output="screen">
+    <node pkg="yolodetector" type="cpu_performance.sh"
+        name="cpu_boost" output="screen">
     </node>
-  <include file="$(find dyn_object_tracker)/launch/piv_filter_start_sim.launch">
-<arg name="manager_name"  value="$(arg manager_name)" />
-</include>
+  </group>
 </launch>

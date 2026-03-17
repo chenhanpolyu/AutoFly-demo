@@ -6,8 +6,8 @@ subscribers:
     
 yolo:
   model_reading:
-    model_path: /home/fj005-2/demo_ws/src/yolo_fdsst_piv/yolo_fastest_ros/ncnn/yolo-fastestv2-opt.bin
-    para_path: /home/fj005-2/demo_ws/src/yolo_fdsst_piv/yolo_fastest_ros/ncnn/yolo-fastestv2-opt.param
+    model_path: yolo-fastestv2-opt.bin
+    para_path: yolo-fastestv2-opt.param
   interested_objects_id: [0, 1, 2, 3, 5, 7]
   detection_parameters:
     use_gpu: false
