@@ -18,14 +18,9 @@ Then, run `catkin_make` to build the entire workspace.
 ## 功能演示
 按照仿真流程操作，你会得到如下仿真结果：
 
-<video width="800" controls autoplay loop muted>
-  <source src="assets/gazebo.webm" type="video/webm">
-  您的浏览器不支持视频播放，请点击<a href="assets/gazebo.webm">这里</a>下载观看。
-</video>
+### Gazebo 仿真演示
+![Gazebo 路径规划演示](assets/gazebo.gif)
 
-<video width="800" controls autoplay loop muted>
-  <source src="assets/rviz.webm" type="video/webm">
-  您的浏览器不支持视频播放，请点击<a href="assets/rviz.webm">这里</a>下载观看。
-</video>
-
+### RViz 可视化演示
+![RViz 路径规划演示](assets/rviz.gif)
 
