@@ -53,6 +53,18 @@ void TrajectoryGenerator_fast::replan_traj(Vector3d &start, Vector3d &vi, Vector
   //    }//start_end_divs[1].normalized()*config.velMax; }//the end velocity of the kinoA* path //(finState.col(0)-iniState.col(0)).normalized()*config.velMax;
   finState.col(2) = Vector3d::Zero(3);
   // check_wps_in_polyH();
+
+  bool need_hover = (start - wPs.back()).norm() < 1e-3; 
+  if (need_hover)
+  {
+    cout << "[Hover Mode] Start == Goal. Skip optimization." << endl;
+    total_t = traj.getTotalDuration();
+    cout << "total_t" << total_t << endl;
+    plan_tm = ros::Time::now().toSec();
+
+    return;
+  }
+
   Traj_opt(iniState, finState, plan_t);
   if (config.yawplan && dynobs_pointer->dyn_number > 0)
   {
@@ -174,8 +186,12 @@ void TrajectoryGenerator_fast::Yaw_plan(double plan_t)
   }
   // cout << "yaw plan begin" << endl;
   // std::cout<<"Got the vis score matrix: "<<M_vis_score<<std::endl;
-  double max_total_score = 0;
-  int choosed_col;
+  // double max_total_score = 0;
+  // int choosed_col;
+
+  double max_total_score = -1e6; 
+  int choosed_col = 0;  
+
   for (row = 1; row < rows; row++)
   {
     for (col = 0; col < cols; col++)
@@ -219,10 +235,17 @@ void TrajectoryGenerator_fast::Yaw_plan(double plan_t)
       }
     }
   }
+
+  if(rows == 1) 
+  {
+    choosed_col = cols/2;
+  }
+
   for (row = rows - 1; row >= 0; row--)
   {
     yaw_plan.push_back(M_yaw[row][choosed_col]);
     choosed_col = M_parent[row][choosed_col];
+    choosed_col = max(0, min(choosed_col, cols-1)); 
     if (config.if_debug)
       std::cout << "yaw planned: " << yaw_plan.back() << " row:" << row << " choosed_col: " << choosed_col << " rows: " << rows << std::endl;
   }
@@ -375,9 +398,9 @@ bool TrajectoryGenerator_fast::check_polyH_safe(const double plan_t, const Matri
     Yaw_plan(yaw_plan_tm);
     yaw_timeout = false;
   }
-  if (path_replan && (traj.getPos(total_t) - wPs.back()).norm() > config.horizon * 0.3)
+  if (path_replan)
   {
-    cout << "Path replanned, so traj replan. Traj end and goal distance:" << (traj.getPos(total_t) - wPs.back()).norm() << endl;
+    cout << "[INFO] Frontend path updated, trigger backend replan."  << endl;
     return false;
   }
   // if ((path_replan && start_t1 > 0.15*total_t) || start_t1 > 0.4*total_t)
