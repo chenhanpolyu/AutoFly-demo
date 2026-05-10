@@ -20,8 +20,21 @@ make px4_sitl_default gazebo
 
 4.编译成功后，启动仿真环境：“roslaunch gazebo_sim gazebo_sim_dyn.launch”。里面包含了静态障碍物以及动态行人，以及一架带有深度相机的无人机。
 
+可能遇到的问题：
+1.保证gazebo与px4的正确连接，可使用如下命令进行初始化：
+````
+source ~/PX4-Autopilot/Tools/setup_gazebo.bash ~/PX4-Autopilot ~/PX4-Autopilot/build/px4_sitl_default
+````
 
-如果配置Gazebo环境中出现问题，请参考[E2ES项目](https://github.com/HKPolyU-UAV/E2ES)的文档，里面对需要安装的依赖有详细的说明。
+2.如果gazebo仿真中没有无人机的出现，该概率是因为没有将gazebo_playground-main/gazebo/models中的无人机模型添加到Gazebo 仿真器的模型搜索路径中
+
+3.可能没有建立px4和MAVROS的连接。可以尝试如下指令：
+```
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4-Autopilot 
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4-Autopilot/Tools/sitl_gazebo
+```
+
+如果配置Gazebo环境还出现其他问题，请参考[E2ES项目](https://github.com/HKPolyU-UAV/E2ES)的文档，里面对需要安装的依赖有详细的说明。
 
 
 ## 删除无用的包
