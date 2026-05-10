@@ -416,6 +416,12 @@ int main(int argc, char **argv)
           {
             kino_path_finder_->getSamples(0.2, waypoints, start_end_derivatives);
           }
+          else  
+          {
+            waypoints.clear();
+            waypoints.emplace_back(ct_pos); 
+            waypoints.emplace_back(ct_pos);
+          }
           path_replan = true;
         }
         else
