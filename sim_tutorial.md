@@ -36,6 +36,22 @@ export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/PX4-Autopilot/Tools/sitl_gazebo
 
 如果配置Gazebo环境还出现其他问题，请参考[E2ES项目](https://github.com/HKPolyU-UAV/E2ES)的文档，里面对需要安装的依赖有详细的说明。
 
+4.WSL2环境下，Gazebo仿真窗口黑屏
+   尝试使用CPU软件渲染，在启动仿真前执行：
+```
+export LIBGL_ALWAYS_SOFTWARE=1
+export GALLIUM_DRIVER=llvmpipe
+export DISPLAY=:0
+```
+
+5.如果动态障碍物actor不显示或显示为立方体，可以尝试编辑gazebo_playground/gazebo/worlds/clustered_actors.world，将每个actor `<skin>` 与 `<animation>`的.dae文件名改为一致。
+
+6.roslaunch启动时Gazebo段错误，可能因为世界文件中碰撞体缩放值过小会导致ODE物理引擎崩溃。尝试将缩放值统一改为0.05，并提高物理迭代次数到50。
+
+7.如果rviz中看不到动态行人的速度箭头，可以尝试修改sim_yolo_ros.launch中的use_dynamic_obstacles为true，然后在rviz中添加MarkerArray显示，订阅话题/dyn。
+
+8.yolodetector编译报错显示找不到OpenCV 3，可能由于ROS Noetic默认使用OpenCV 4，可以尝试编辑yolo_fastest_ros中的CMakeLists.txt，将 find_package(OpenCV 3 REQUIRED) 改为 find_package(OpenCV 4 REQUIRED) 。
+
 
 ## 删除无用的包
 仿真环境里不需要FLVIS以及realsense-ros这两个包，要先删除。
